@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const formatDate = (dateString: Date) => {
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) {
-    return "Data inválida";
-  }
+const formatDate = (userTimeZone: string = "America/Sao_Paulo") => {
+  const date = new Date();
 
   const formatter = new Intl.DateTimeFormat("pt-BR", {
     year: "2-digit",
@@ -12,6 +9,7 @@ const formatDate = (dateString: Date) => {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: userTimeZone,
   });
 
   return formatter.format(date).replace(/\//g, "-").replace(",", "");
@@ -40,8 +38,10 @@ async function translateText(text: string, targetLang: string) {
 
 export async function GET(req: NextRequest) {
   try {
-    const now = new Date();
-    const date = formatDate(now);
+    const { searchParams } = new URL(req.url);
+    const userTimeZone = searchParams.get("timezone") || "UTC";
+
+    const date = formatDate(userTimeZone);
 
     const catImageUrl = `https://cataas.com/cat/says/${date}?filter=mono&fontColor=orange&fontSize=20&width=200&height=200`;
     const catImageRes = await fetch(catImageUrl, {
