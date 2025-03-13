@@ -2,7 +2,9 @@ import { getCatAndAdvice } from "@/lib/getCatAndAdvice";
 import NotFoundCat from "../assets/404.jpg";
 
 export default async function Home() {
-  const { image, advice } = await getCatAndAdvice();
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const { image, advice } = await getCatAndAdvice(userTimeZone);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-dvh md:min-h-screen bg-gradient-to-br from-blue-400 to-purple-600 p-6 text-white">
