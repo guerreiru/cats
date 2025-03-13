@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const formatDate = (dateString: Date) => {
+const formatDate = (dateString: Date) => {
   const date = new Date(dateString);
   if (isNaN(date.getTime())) {
     return "Data inválida";
