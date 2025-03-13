@@ -1,4 +1,5 @@
 import { getCatAndAdvice } from "@/lib/getCatAndAdvice";
+import NotFoundCat from "../assets/404.jpg";
 
 export default async function Home() {
   const { image, advice } = await getCatAndAdvice();
@@ -11,7 +12,7 @@ export default async function Home() {
 
       <div className="relative bg-white rounded-2xl shadow-xl p-6 w-full max-w-md flex flex-col items-center">
         <img
-          src={image}
+          src={image || NotFoundCat}
           alt="Gato Aleatório"
           className="w-full h-auto rounded-lg shadow-md transition-all duration-300 hover:scale-105"
         />
