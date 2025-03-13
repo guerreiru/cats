@@ -1,6 +1,8 @@
-export async function getCatAndAdvice() {
+export async function getCatAndAdvice(
+  userTimeZone: string = "America/Sao_Paulo"
+) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/catAndAdvice`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/catAndAdvice?timezone=${userTimeZone}`,
     {
       cache: "no-store",
     }
