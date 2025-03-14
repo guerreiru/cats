@@ -1,10 +1,5 @@
 "use client";
-import { useRef } from "react";
-import { MdOutlineAutorenew } from "react-icons/md";
-import { ShareAdviceButton } from "./shareAdviceButton";
-import { DownloadImageButton } from "./downloadImageButton";
-import html2canvas from "html2canvas-pro";
-import { IoIosDownload } from "react-icons/io";
+import Tilt from "react-parallax-tilt";
 
 type CatCardProps = {
   image: string;
@@ -13,7 +8,14 @@ type CatCardProps = {
 
 export function CatCard({ advice, image }: CatCardProps) {
   return (
-    <>
+    <Tilt
+      tiltMaxAngleX={15}
+      tiltMaxAngleY={15}
+      perspective={1000}
+      transitionSpeed={1000}
+      gyroscope={true}
+      className="w-full max-w-md"
+    >
       <div
         className="relative bg-white rounded-2xl shadow-xl p-6 w-full max-w-md flex flex-col items-center"
         id="cat-card"
@@ -23,13 +25,13 @@ export function CatCard({ advice, image }: CatCardProps) {
             src={image || "../assets/404.jpg"}
             alt="Gato Aleatório"
             id="cat-image"
-            className="w-full rounded-lg shadow-md transition-all duration-300 hover:scale-105"
+            className="w-full rounded-lg shadow-md transition-all duration-300 "
           />
         </div>
         <p className="text-lg text-gray-800 font-medium mt-4 text-center italic">
           "{advice}"
         </p>
       </div>
-    </>
+    </Tilt>
   );
 }
