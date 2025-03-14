@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 import Tilt from "react-parallax-tilt";
 
 type CatCardProps = {
@@ -7,31 +9,45 @@ type CatCardProps = {
 };
 
 export function CatCard({ advice, image }: CatCardProps) {
+  const [parallaxEnabled, setParallaxEnabled] = useState(false);
+
   return (
-    <Tilt
-      tiltMaxAngleX={15}
-      tiltMaxAngleY={15}
-      perspective={1000}
-      transitionSpeed={1000}
-      gyroscope={true}
-      className="w-full max-w-md"
-    >
-      <div
-        className="relative bg-white rounded-2xl shadow-xl p-6 w-full max-w-md flex flex-col items-center"
-        id="cat-card"
+    <>
+      <Tilt
+        tiltMaxAngleX={15}
+        tiltMaxAngleY={15}
+        perspective={1000}
+        transitionSpeed={1000}
+        gyroscope={true}
+        className="w-full max-w-md"
+        tiltEnable={parallaxEnabled}
       >
-        <div className="w-full min-h-56 md:min-h-96">
-          <img
-            src={image || "../assets/404.jpg"}
-            alt="Gato Aleatório"
-            id="cat-image"
-            className="w-full rounded-lg shadow-md transition-all duration-300 "
-          />
+        <div
+          className="relative bg-white rounded-2xl shadow-xl p-6 w-full max-w-md flex flex-col items-center"
+          id="cat-card"
+        >
+          <div className="w-full min-h-56 md:min-h-96">
+            <img
+              src={image || "../assets/404.jpg"}
+              alt="Gato Aleatório"
+              id="cat-image"
+              className="w-full rounded-lg shadow-md transition-all duration-300 "
+            />
+          </div>
+          <p className="text-lg text-gray-800 font-medium mt-4 text-center italic">
+            "{advice}"
+          </p>
         </div>
-        <p className="text-lg text-gray-800 font-medium mt-4 text-center italic">
-          "{advice}"
-        </p>
-      </div>
-    </Tilt>
+      </Tilt>
+
+      <button
+        onClick={() => setParallaxEnabled(!parallaxEnabled)}
+        className="fixed bottom-4 right-4 bg-gray-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-50 hover:opacity-100"
+        title={parallaxEnabled ? "Desativar efeito" : "Ativar efeito"}
+      >
+        3D{" "}
+        {parallaxEnabled ? <FaToggleOn size={24} /> : <FaToggleOff size={24} />}
+      </button>
+    </>
   );
 }
