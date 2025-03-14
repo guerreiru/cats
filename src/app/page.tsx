@@ -3,6 +3,7 @@ import { getCatAndAdvice } from "@/lib/getCatAndAdvice";
 import NotFoundCat from "../assets/404.jpg";
 import { MdOutlineAutorenew } from "react-icons/md";
 import { DownloadImageButton } from "@/components/downloadImageButton";
+import { CatCard } from "@/components/catCard";
 
 export default async function Home() {
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -15,21 +16,7 @@ export default async function Home() {
         🐱 Gato do Dia
       </h1>
 
-      <div
-        className="relative bg-white rounded-2xl shadow-xl p-6 w-full max-w-md flex flex-col items-center"
-        id="cat-card"
-      >
-        <div className="w-full min-h-56 md:min-h-96">
-          <img
-            src={image || NotFoundCat}
-            alt="Gato Aleatório"
-            className="w-full rounded-lg shadow-md transition-all duration-300 hover:scale-105"
-          />
-        </div>
-        <p className="text-lg text-gray-800 font-medium mt-4 text-center italic">
-          "{advice}"
-        </p>
-      </div>
+      <CatCard advice={advice} image={image} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 place-items-center mt-4 md:mt-6 gap-y-2">
         <a

@@ -1,3 +1,4 @@
+import { neon } from "@neondatabase/serverless";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getAdvice() {
@@ -23,7 +24,10 @@ async function translateText(text: string, targetLang: string) {
 
 export async function GET(req: NextRequest) {
   try {
+    // Comece o processo de obtenção da imagem e do conselho
     const catImageUrl = `https://cataas.com/cat?filter=mono&fontColor=orange&fontSize=20&width=200&height=200`;
+
+    // Requisição da imagem do gato
     const catImageRes = await fetch(catImageUrl, {
       headers: { "Content-Type": "image/jpeg" },
       cache: "no-cache",
@@ -36,11 +40,38 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    let advice = await getAdvice();
+    const imageBuffer = await catImageRes.arrayBuffer();
+    const imageBase64 = Buffer.from(imageBuffer).toString("base64");
+    const imageDataUrl = `data:image/jpeg;base64,${imageBase64}`;
 
-    advice = await translateText(advice, "pt");
+    // Requisição para o conselho
+    const advice = await getAdvice();
+    const adviceTranslated = await translateText(advice, "pt");
 
-    return NextResponse.json({ image: catImageUrl, advice });
+    // Inicie a conexão com o banco de dados
+    const sql = neon(`${process.env.DATABASE_URL}`);
+
+    // Execute a inserção de forma assíncrona, sem bloquear a resposta da imagem
+    (async () => {
+      try {
+        const adviceAlreadyExists = await sql(
+          `SELECT * FROM advice WHERE advice.original = $1`,
+          [advice]
+        );
+
+        if (adviceAlreadyExists.length === 0) {
+          await sql(
+            "INSERT INTO advice (original, translated) VALUES ($1, $2)",
+            [advice, adviceTranslated]
+          );
+        }
+      } catch (error) {
+        console.error("Erro ao salvar conselho no banco:", error);
+      }
+    })();
+
+    // Retorna imediatamente a imagem e o conselho ao usuário
+    return NextResponse.json({ image: imageDataUrl, advice: adviceTranslated });
   } catch (error) {
     return NextResponse.json({ error: "Erro interno" }, { status: 500 });
   }
