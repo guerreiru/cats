@@ -4,13 +4,11 @@ import { FaXTwitter } from "react-icons/fa6";
 
 type ShareAdviceButton = {
   advice: string;
-  image: string;
 };
 
-export function ShareAdviceButton({ advice, image }: ShareAdviceButton) {
+export function ShareAdviceButton({ advice }: ShareAdviceButton) {
   const shareAdvice = () => {
     const text = `🐱 Conselho do Gato: \"${advice}\"`;
-    const imageUrl = encodeURIComponent(image);
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
     )}`;

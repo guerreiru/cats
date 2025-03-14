@@ -25,7 +25,7 @@ export default async function Home() {
         >
           <MdOutlineAutorenew /> Gerar Novo
         </a>
-        <ShareAdviceButton advice={advice} image={image} />
+        <ShareAdviceButton advice={advice} />
         <DownloadImageButton />
       </div>
     </div>
