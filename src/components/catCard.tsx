@@ -14,10 +14,10 @@ export function CatCard({ advice, image }: CatCardProps) {
   return (
     <>
       <Tilt
-        tiltMaxAngleX={parallaxEnabled ? 15 : 0}
-        tiltMaxAngleY={parallaxEnabled ? 15 : 0}
-        perspective={parallaxEnabled ? 1000 : 0}
-        transitionSpeed={parallaxEnabled ? 1000 : 0}
+        tiltMaxAngleX={15}
+        tiltMaxAngleY={15}
+        perspective={1000}
+        transitionSpeed={1000}
         gyroscope={true}
         className="w-full max-w-md"
         tiltEnable={parallaxEnabled}
