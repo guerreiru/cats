@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const formatDate = (userTimeZone: string = "America/Sao_Paulo") => {
   const date = new Date();
+  date.setHours(date.getHours() - 3);
 
   const formatter = new Intl.DateTimeFormat("pt-BR", {
     year: "2-digit",
@@ -38,6 +39,8 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const userTimeZone = searchParams.get("timezone") || "UTC";
+
+    console.log(userTimeZone);
 
     const date = formatDate(userTimeZone);
 
