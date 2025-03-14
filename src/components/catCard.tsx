@@ -18,7 +18,7 @@ export function CatCard({ advice, image }: CatCardProps) {
         tiltMaxAngleY={parallaxEnabled ? 15 : 0}
         perspective={parallaxEnabled ? 1000 : 0}
         transitionSpeed={parallaxEnabled ? 1000 : 0}
-        gyroscope={parallaxEnabled ? true : false}
+        gyroscope={true}
         className="w-full max-w-md"
         tiltEnable={parallaxEnabled}
       >
