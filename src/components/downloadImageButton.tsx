@@ -17,7 +17,11 @@ export function DownloadImageButton() {
 
     const link = document.createElement("a");
     link.href = dataUrl;
-    link.download = "gato_do_dia.png";
+    const date = new Date();
+    const imageName = `gato_do_dia_${date.getDate()}_${
+      date.getMonth() + 1
+    }_${date.getFullYear()}.png;`;
+    link.download = imageName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
