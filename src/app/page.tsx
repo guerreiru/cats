@@ -1,6 +1,5 @@
 import { ShareAdviceButton } from "@/components/shareAdviceButton";
 import { getCatAndAdvice } from "@/lib/getCatAndAdvice";
-import NotFoundCat from "../assets/404.jpg";
 import { MdOutlineAutorenew } from "react-icons/md";
 import { DownloadImageButton } from "@/components/downloadImageButton";
 import { CatCard } from "@/components/catCard";
